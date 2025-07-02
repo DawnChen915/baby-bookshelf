@@ -21,6 +21,7 @@ export default defineConfig({
       resolvers: [VantResolver()],
     }),
   ],
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
