@@ -45,6 +45,7 @@ function goToPage(index) {
 
 // 触摸事件处理
 function handleTouchStart(event) {
+
   touchStartX.value = event.touches[0].clientX
   touchStartY.value = event.touches[0].clientY
 }
@@ -61,6 +62,7 @@ function handleSwipe() {
 
   // 确保水平滑动距离大于垂直滑动距离（避免误触）
   if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+
     if (deltaX > 0) {
       // 向右滑动 - 上一页
       prevPage()
@@ -143,12 +145,12 @@ onMounted(loadBook)
           </van-empty>
 
           <!-- 音频指示器 -->
-          <div v-if="currentPage && currentPage.audio" class="audio-indicator">
+          <!-- <div v-if="currentPage && currentPage.audio" class="audio-indicator">
             <div class="audio-icon" :class="{ playing: isPlaying }">
               {{ isPlaying ? '🔊' : '' }}
             </div>
             <div class="audio-tip">点击图片播放声音</div>
-          </div>
+          </div> -->
         </div>
       </div>
 
