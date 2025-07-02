@@ -1,0 +1,251 @@
+/* Vant 深色主题配置 */
+
+/* 浅色模式下的 Vant 主题变量 */
+:root {
+  /* 主色调 */
+  --van-primary-color: #ff8b94;
+  --van-success-color: #a8e6cf;
+  --van-warning-color: #ffd93d;
+  --van-danger-color: #ff6b6b;
+  --van-info-color: #74c0fc;
+
+  /* 背景色 */
+  --van-background-color: #fff;
+  --van-background-2: #fafafa;
+  --van-gray-1: #f7f8fa;
+  --van-gray-2: #f2f3f5;
+  --van-gray-3: #ebedf0;
+  --van-gray-4: #dcdee0;
+  --van-gray-5: #c8c9cc;
+  --van-gray-6: #969799;
+  --van-gray-7: #646566;
+  --van-gray-8: #323233;
+
+  /* 文本颜色 */
+  --van-text-color: #323233;
+  --van-text-color-2: #646566;
+  --van-text-color-3: #969799;
+
+  /* 边框颜色 */
+  --van-border-color: #ebedf0;
+  --van-active-color: #f2f3f5;
+  --van-active-opacity: 0.7;
+
+  /* 导航栏 */
+  --van-nav-bar-background-color: linear-gradient(135deg, #ff8b94 0%, #a8e6cf 100%);
+  --van-nav-bar-title-text-color: #fff;
+  --van-nav-bar-icon-color: #fff;
+
+  /* 标签栏 */
+  --van-tabbar-item-active-color: #ff8b94;
+  --van-tabbar-item-active-background-color: rgba(255, 139, 148, 0.1);
+
+  /* 按钮 */
+  --van-button-primary-background-color: #ff8b94;
+  --van-button-primary-border-color: #ff8b94;
+  --van-button-success-background-color: #a8e6cf;
+  --van-button-success-border-color: #a8e6cf;
+  --van-button-warning-background-color: #ffd93d;
+  --van-button-warning-border-color: #ffd93d;
+
+  /* 卡片 */
+  --van-card-background-color: #fff;
+  --van-card-text-color: #323233;
+
+  /* 单元格 */
+  --van-cell-background-color: #fff;
+  --van-cell-text-color: #323233;
+  --van-cell-label-color: #969799;
+
+  /* 输入框 */
+  --van-field-input-text-color: #323233;
+  --van-field-label-color: #646566;
+  --van-field-placeholder-text-color: #969799;
+  --van-field-input-background-color: #fff;
+  --van-field-background-color: #fff;
+}
+
+/* 深色模式下的 Vant 主题变量 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 主色调 - 在深色模式下稍微调亮 */
+    --van-primary-color: #ffb3ba;
+    --van-success-color: #b8f0d0;
+    --van-warning-color: #ffe066;
+    --van-danger-color: #ff8a80;
+    --van-info-color: #81c7ff;
+
+    /* 背景色 */
+    --van-background-color: #1a1a1a;
+    --van-background-2: #2d2d2d;
+    --van-gray-1: #323233;
+    --van-gray-2: #3a3a3a;
+    --van-gray-3: #4a4a4a;
+    --van-gray-4: #5a5a5a;
+    --van-gray-5: #6a6a6a;
+    --van-gray-6: #969799;
+    --van-gray-7: #c8c9cc;
+    --van-gray-8: #ebedf0;
+
+    /* 文本颜色 */
+    --van-text-color: #ebedf0;
+    --van-text-color-2: #c8c9cc;
+    --van-text-color-3: #969799;
+
+    /* 边框颜色 */
+    --van-border-color: #3a3a3a;
+    --van-active-color: #3a3a3a;
+
+    /* 导航栏 */
+    --van-nav-bar-background-color: linear-gradient(135deg, #ffb3ba 0%, #b8f0d0 100%);
+    --van-nav-bar-title-text-color: #2d2d2d;
+    --van-nav-bar-icon-color: #2d2d2d;
+
+    /* 标签栏 */
+    --van-tabbar-background-color: #2d2d2d;
+    --van-tabbar-item-text-color: #969799;
+    --van-tabbar-item-active-color: #ffb3ba;
+    --van-tabbar-item-active-background-color: rgba(255, 179, 186, 0.1);
+
+    /* 按钮 */
+    --van-button-default-background-color: #3a3a3a;
+    --van-button-default-border-color: #3a3a3a;
+    --van-button-default-color: #ebedf0;
+    --van-button-primary-background-color: #ffb3ba;
+    --van-button-primary-border-color: #ffb3ba;
+    --van-button-primary-color: #2d2d2d;
+    --van-button-success-background-color: #b8f0d0;
+    --van-button-success-border-color: #b8f0d0;
+    --van-button-success-color: #2d2d2d;
+    --van-button-warning-background-color: #ffe066;
+    --van-button-warning-border-color: #ffe066;
+    --van-button-warning-color: #2d2d2d;
+
+    /* 卡片 */
+    --van-card-background-color: #2d2d2d;
+    --van-card-text-color: #ebedf0;
+
+    --van-cell-group-background: #2d2d2d;
+
+    /* 单元格 */
+    --van-cell-background-color: #2d2d2d;
+    --van-cell-text-color: #ebedf0;
+    --van-cell-label-color: #969799;
+    --van-cell-border-color: #3a3a3a;
+
+    /* 弹出层 */
+    --van-popup-background-color: #2d2d2d;
+    --van-overlay-background-color: rgba(0, 0, 0, 0.7);
+
+    /* 输入框 */
+    --van-field-input-text-color: #ebedf0;
+    --van-field-label-color: #c8c9cc;
+    --van-field-placeholder-text-color: #969799;
+
+    /* 通知栏 */
+    --van-notify-text-color: #ebedf0;
+    --van-notify-background-color: #2d2d2d;
+
+    /* 加载 */
+    --van-loading-spinner-color: #ffb3ba;
+
+    /* 空状态 */
+    --van-empty-description-color: #969799;
+
+    /* 图片 */
+    --van-image-placeholder-text-color: #969799;
+    --van-image-placeholder-background-color: #3a3a3a;
+  }
+}
+
+/* 强制深色模式样式 */
+[data-theme='dark'] {
+  /* 主色调 */
+  --van-primary-color: #ffb3ba;
+  --van-success-color: #b8f0d0;
+  --van-warning-color: #ffe066;
+  --van-danger-color: #ff8a80;
+  --van-info-color: #81c7ff;
+
+  /* 背景色 */
+  --van-background-color: #1a1a1a;
+  --van-background-2: #2d2d2d;
+  --van-gray-1: #323233;
+  --van-gray-2: #3a3a3a;
+  --van-gray-3: #4a4a4a;
+  --van-gray-4: #5a5a5a;
+  --van-gray-5: #6a6a6a;
+  --van-gray-6: #969799;
+  --van-gray-7: #c8c9cc;
+  --van-gray-8: #ebedf0;
+
+  /* 文本颜色 */
+  --van-text-color: #ebedf0;
+  --van-text-color-2: #c8c9cc;
+  --van-text-color-3: #969799;
+
+  /* 边框颜色 */
+  --van-border-color: #3a3a3a;
+  --van-active-color: #3a3a3a;
+
+  /* 导航栏 */
+  --van-nav-bar-background-color: linear-gradient(135deg, #ffb3ba 0%, #b8f0d0 100%);
+  --van-nav-bar-title-text-color: #2d2d2d;
+  --van-nav-bar-icon-color: #2d2d2d;
+
+  /* 其他组件样式同上... */
+  /* 标签栏 */
+  --van-tabbar-background-color: #2d2d2d;
+  --van-tabbar-item-text-color: #969799;
+  --van-tabbar-item-active-color: #ffb3ba;
+  --van-tabbar-item-active-background-color: rgba(255, 179, 186, 0.1);
+
+  /* 按钮 */
+  --van-button-default-background-color: #3a3a3a;
+  --van-button-default-border-color: #3a3a3a;
+  --van-button-default-color: #ebedf0;
+  --van-button-primary-background-color: #ffb3ba;
+  --van-button-primary-border-color: #ffb3ba;
+  --van-button-primary-color: #2d2d2d;
+  --van-button-success-background-color: #b8f0d0;
+  --van-button-success-border-color: #b8f0d0;
+  --van-button-success-color: #2d2d2d;
+  --van-button-warning-background-color: #ffe066;
+  --van-button-warning-border-color: #ffe066;
+  --van-button-warning-color: #2d2d2d;
+
+  /* 卡片 */
+  --van-card-background-color: #2d2d2d;
+  --van-card-text-color: #ebedf0;
+
+  /* 单元格 */
+  --van-cell-background-color: #2d2d2d;
+  --van-cell-text-color: #ebedf0;
+  --van-cell-label-color: #969799;
+  --van-cell-border-color: #3a3a3a;
+
+  /* 弹出层 */
+  --van-popup-background-color: #2d2d2d;
+  --van-overlay-background-color: rgba(0, 0, 0, 0.7);
+
+  /* 输入框 */
+  --van-field-input-text-color: #ebedf0;
+  --van-field-label-color: #c8c9cc;
+  --van-field-placeholder-text-color: #969799;
+  --van-field-input-background-color: #2d2d2d;
+  --van-field-background-color: #2d2d2d;
+
+  /* 通知栏 */
+  --van-notify-text-color: #ebedf0;
+  --van-notify-background-color: #2d2d2d;
+
+  /* 加载 */
+  --van-loading-spinner-color: #ffb3ba;
+
+  /* 空状态 */
+  --van-empty-description-color: #969799;
+
+  /* 图片 */
+  --van-image-placeholder-text-color: #969799;
+  --van-image-placeholder-background-color: #3a3a3a;
+}

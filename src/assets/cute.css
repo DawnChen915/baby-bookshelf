@@ -1,0 +1,234 @@
+/* 宝宝书架专用全局样式 */
+
+/* 可爱的动画效果 */
+@keyframes wiggle {
+  0%,
+  7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%,
+  100% {
+    transform: rotateZ(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* 趣味性的全局样式 */
+.wiggle:hover {
+  animation: wiggle 0.8s ease-in-out;
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.rainbow {
+  animation: rainbow 3s linear infinite;
+}
+
+/* 自定义Vant组件样式 */
+.van-button--primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-soft) 100%);
+  border: none;
+  font-weight: bold;
+}
+
+.van-button--primary:hover {
+  background: linear-gradient(135deg, var(--color-primary-soft) 0%, var(--color-primary) 100%);
+}
+
+.van-nav-bar {
+  transition: all 0.3s ease;
+}
+
+.van-tabbar {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(255, 139, 148, 0.2);
+}
+
+.van-tabbar-item--active {
+  background: rgba(255, 139, 148, 0.1);
+  border-radius: 12px 12px 0 0;
+}
+
+/* 可爱的表情符号动画 */
+.emoji-bounce {
+  display: inline-block;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.emoji-spin {
+  display: inline-block;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 毛玻璃效果 */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 可爱的阴影效果 */
+.cute-shadow {
+  box-shadow:
+    0 4px 15px rgba(255, 139, 148, 0.2),
+    0 8px 30px rgba(255, 139, 148, 0.1);
+}
+
+.cute-shadow-hover:hover {
+  box-shadow:
+    0 8px 25px rgba(255, 139, 148, 0.3),
+    0 12px 40px rgba(255, 139, 148, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 柔和的圆角 */
+.soft-rounded {
+  border-radius: 16px;
+}
+
+.super-rounded {
+  border-radius: 24px;
+}
+
+/* 可爱的渐变背景 */
+.gradient-pink {
+  background: linear-gradient(135deg, #ffb3ba 0%, #ffcccb 100%);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+}
+
+.gradient-yellow {
+  background: linear-gradient(135deg, #ffd93d 0%, #ffe066 100%);
+}
+
+/* 童趣字体 */
+.cute-font {
+  font-family: 'Comic Sans MS', 'Microsoft YaHei', cursive, sans-serif;
+}
+
+/* 温馨提示样式 */
+.warm-tip {
+  background: linear-gradient(135deg, #fff8e1 0%, #f3e5f5 100%);
+  border-left: 4px solid var(--color-accent);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+/* 适合宝宝的触摸目标大小 */
+.baby-touch {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 可爱的加载动画 */
+.cute-loading {
+  display: inline-block;
+  font-size: 24px;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+/* 星星装饰 */
+.stars {
+  position: relative;
+}
+
+.stars::before,
+.stars::after {
+  content: '✨';
+  position: absolute;
+  font-size: 12px;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+.stars::before {
+  top: -8px;
+  left: -16px;
+}
+
+.stars::after {
+  bottom: -8px;
+  right: -16px;
+  animation-delay: 1s;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 响应式设计辅助类 */
+@media (max-width: 480px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 481px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}

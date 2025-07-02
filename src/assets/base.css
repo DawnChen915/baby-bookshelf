@@ -1,29 +1,45 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* 宝宝书架专用色彩主题 */
 :root {
   --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --vt-c-white-soft: #fef9f6;
+  --vt-c-white-mute: #fef7f1;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  --vt-c-black: #2d2d2d;
+  --vt-c-black-soft: #3a3a3a;
+  --vt-c-black-mute: #4a4a4a;
 
-  --vt-c-indigo: #2c3e50;
+  /* 温馨的主色调 */
+  --vt-c-primary: #ff8b94;
+  --vt-c-primary-soft: #ffb3ba;
+  --vt-c-primary-mute: #ffcccb;
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+  /* 辅助色彩 */
+  --vt-c-secondary: #a8e6cf;
+  --vt-c-accent: #ffd93d;
+  --vt-c-accent-soft: #ffe066;
 
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  /* 背景渐变色 */
+  --vt-c-bg-gradient-start: #fff5f5;
+  --vt-c-bg-gradient-end: #f0f9ff;
+
+  --vt-c-divider-light-1: rgba(255, 139, 148, 0.3);
+  --vt-c-divider-light-2: rgba(255, 139, 148, 0.15);
+  --vt-c-divider-dark-1: rgba(168, 230, 207, 0.6);
+  --vt-c-divider-dark-2: rgba(168, 230, 207, 0.4);
+
+  --vt-c-text-light-1: #5a5a5a;
+  --vt-c-text-light-2: rgba(90, 90, 90, 0.7);
   --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --vt-c-text-dark-2: rgba(235, 235, 235, 0.8);
 }
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
+  --color-background: linear-gradient(
+    135deg,
+    var(--vt-c-bg-gradient-start) 0%,
+    var(--vt-c-bg-gradient-end) 100%
+  );
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
 
@@ -33,12 +49,47 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
+  /* 书架专用颜色 */
+  --color-primary: var(--vt-c-primary);
+  --color-primary-soft: var(--vt-c-primary-soft);
+  --color-secondary: var(--vt-c-secondary);
+  --color-accent: var(--vt-c-accent);
+
   --section-gap: 160px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
+    --vt-c-bg-gradient-start: #2d2d2d;
+    --vt-c-bg-gradient-end: #1a1a1a;
+
+    --color-background: linear-gradient(
+      135deg,
+      var(--vt-c-bg-gradient-start) 0%,
+      var(--vt-c-bg-gradient-end) 100%
+    );
+    --color-background-soft: var(--vt-c-black-soft);
+    --color-background-mute: var(--vt-c-black-mute);
+
+    --color-border: var(--vt-c-divider-dark-2);
+    --color-border-hover: var(--vt-c-divider-dark-1);
+
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2);
+  }
+}
+
+/* 强制深色模式 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vt-c-bg-gradient-start: #2d2d2d;
+    --vt-c-bg-gradient-end: #1a1a1a;
+
+    --color-background: linear-gradient(
+      135deg,
+      var(--vt-c-bg-gradient-start) 0%,
+      var(--vt-c-bg-gradient-end) 100%
+    );
     --color-background-soft: var(--vt-c-black-soft);
     --color-background-mute: var(--vt-c-black-mute);
 
@@ -67,6 +118,8 @@ body {
     background-color 0.5s;
   line-height: 1.6;
   font-family:
+    'Comic Sans MS',
+    'Microsoft YaHei',
     Inter,
     -apple-system,
     BlinkMacSystemFont,
@@ -79,7 +132,7 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
