@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getBookById } from '../lib/store'
 // import { Icon } from '@iconify/vue'
@@ -9,103 +9,61 @@ const router = useRouter()
 const book = ref(null)
 const currentPageIndex = ref(0)
 const isPlaying = ref(false)
-
-// 滑动相关状态
-const touchStartX = ref(0)
-const touchStartY = ref(0)
-const touchEndX = ref(0)
-const touchEndY = ref(0)
-const minSwipeDistance = 50 // 最小滑动距离
+const swipeRef = ref(null)
 
 const bookId = Number(route.params.id)
-
-const currentPage = computed(() => {
-  return book.value ? book.value.pages[currentPageIndex.value] : null
-})
 
 async function loadBook() {
   book.value = await getBookById(bookId)
 }
 
-function nextPage() {
-  if (currentPageIndex.value < book.value.pages.length - 1) {
-    currentPageIndex.value++
-  }
-}
-
-function prevPage() {
-  if (currentPageIndex.value > 0) {
-    currentPageIndex.value--
-  }
-}
-
-function goToPage(index) {
-  currentPageIndex.value = index
-}
-
-// 触摸事件处理
-function handleTouchStart(event) {
-
-  touchStartX.value = event.touches[0].clientX
-  touchStartY.value = event.touches[0].clientY
-}
-
-function handleTouchEnd(event) {
-  touchEndX.value = event.changedTouches[0].clientX
-  touchEndY.value = event.changedTouches[0].clientY
-  handleSwipe()
-}
-
-function handleSwipe() {
-  const deltaX = touchEndX.value - touchStartX.value
-  const deltaY = touchEndY.value - touchStartY.value
-
-  // 确保水平滑动距离大于垂直滑动距离（避免误触）
-  if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
-
-    if (deltaX > 0) {
-      // 向右滑动 - 上一页
-      prevPage()
-    } else {
-      // 向左滑动 - 下一页
-      nextPage()
-    }
-  }
-}
-
-function handlePageClick() {
+function handlePageClick(page) {
   // 点击图片播放音频（如果有的话）
-  if (currentPage.value && currentPage.value.audio) {
-    playAudio()
+  if (isPlaying.value == true) return
+
+  if (page && page.audio) {
+    playAudio(page.audio)
   }
 }
 
-function playAudio() {
-  if (currentPage.value && currentPage.value.audio && !isPlaying.value) {
-    const audioUrl = URL.createObjectURL(currentPage.value.audio)
-    const audio = new Audio(audioUrl)
+function playAudio(pageaudio) {
+  const audioUrl = URL.createObjectURL(pageaudio)
+  const audio = new Audio(audioUrl)
 
-    isPlaying.value = true
-    audio.play()
+  isPlaying.value = true
+  audio.play()
 
-    audio.onended = () => {
-      isPlaying.value = false
-      URL.revokeObjectURL(audioUrl)
-    }
+  audio.onended = () => {
+    isPlaying.value = false
+    URL.revokeObjectURL(audioUrl)
+  }
 
-    audio.onerror = () => {
-      isPlaying.value = false
-      URL.revokeObjectURL(audioUrl)
-    }
+  audio.onerror = () => {
+    isPlaying.value = false
+    URL.revokeObjectURL(audioUrl)
   }
 }
+
+const imageUrlMap = new Map()
 
 function getPageImageUrl(page) {
-  if (page && page.image instanceof File) {
-    return URL.createObjectURL(page.image)
+  if (!page) return ''
+  if (page.image instanceof File) {
+    if (!imageUrlMap.has(page)) {
+      imageUrlMap.set(page, URL.createObjectURL(page.image))
+    }
+    return imageUrlMap.get(page)
   }
   return ''
 }
+
+// 页面卸载时释放所有blob url
+onUnmounted(() => {
+  for (const url of imageUrlMap.values()) {
+    URL.revokeObjectURL(url)
+  }
+  imageUrlMap.clear()
+})
 
 onMounted(loadBook)
 </script>
@@ -119,55 +77,45 @@ onMounted(loadBook)
     </van-nav-bar>
 
     <div class="book-read-view">
-      <div
-        class="page-container"
-        @touchstart="handleTouchStart"
-        @touchend="handleTouchEnd"
-        @click="handlePageClick"
+      <van-swipe
+        ref="swipeRef"
+        class="page-swipe"
+        :show-indicators="false"
+        :loop="false"
+        :touchable="true"
+        :autoplay="0"
+        lazy-render
+        :height="'100%'"
       >
-        <div class="page-wrapper">
-          <van-image
-            v-if="currentPage && currentPage.image"
-            fit="contain"
-            :src="getPageImageUrl(currentPage)"
-            class="page-image"
-            loading-icon="photo"
-          >
-            <template #loading>
-              <div class="image-loading">
-                <van-loading type="spinner" size="24px" />
-                <p>正在加载...</p>
+        <van-swipe-item v-for="(page, index) in book.pages" :key="index" class="page-swipe-item">
+          <div class="page-container" @click="handlePageClick(page)">
+            <div class="page-wrapper">
+              <van-image
+                v-if="page && page.image"
+                fit="contain"
+                :src="getPageImageUrl(page)"
+                class="page-image"
+                loading-icon="photo"
+              >
+                <template #loading>
+                  <div class="image-loading">
+                    <van-loading type="spinner" size="24px" />
+                    <p>正在加载...</p>
+                  </div>
+                </template>
+              </van-image>
+              <van-empty v-else description="这一页没有图片呢～" class="page-empty">
+                <div class="empty-icon">🖼️</div>
+              </van-empty>
+
+              <!-- 音频指示器 -->
+              <div v-if="page && page.audio" class="audio-indicator">
+                <div class="audio-tip">点击图片播放声音</div>
               </div>
-            </template>
-          </van-image>
-          <van-empty v-else description="这一页没有图片呢～" class="page-empty">
-            <div class="empty-icon">🖼️</div>
-          </van-empty>
-
-          <!-- 音频指示器 -->
-          <!-- <div v-if="currentPage && currentPage.audio" class="audio-indicator">
-            <div class="audio-icon" :class="{ playing: isPlaying }">
-              {{ isPlaying ? '🔊' : '' }}
             </div>
-            <div class="audio-tip">点击图片播放声音</div>
-          </div> -->
-        </div>
-      </div>
-
-      <!-- 页面指示器 -->
-      <div v-if="false" class="page-navigation">
-        <div class="page-dots">
-          <span
-            v-for="(page, index) in book.pages"
-            :key="index"
-            :class="['page-dot', { active: index === currentPageIndex }]"
-            @click="goToPage(index)"
-          ></span>
-        </div>
-        <div class="swipe-hint">
-          <span class="hint-text">👈 滑动翻页 👉</span>
-        </div>
-      </div>
+          </div>
+        </van-swipe-item>
+      </van-swipe>
     </div>
   </div>
 
@@ -226,8 +174,25 @@ onMounted(loadBook)
   overflow: hidden;
 }
 
-.page-container {
+.page-swipe {
   flex: 1;
+  height: 100%;
+}
+
+:deep(.van-swipe__track) {
+  height: calc(100vh - 50px - 45px - env(safe-area-inset-bottom));
+}
+
+.page-swipe-item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-container {
+  width: 100%;
+  /* height: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,10 +213,6 @@ onMounted(loadBook)
   overflow: hidden;
   transition: transform 0.2s ease;
   position: relative;
-}
-
-.page-container:active .page-wrapper {
-  transform: scale(0.98);
 }
 
 .page-image {
@@ -370,17 +331,7 @@ onMounted(loadBook)
   flex-direction: column;
   align-items: center;
   gap: 12px;
-}
-
-.swipe-hint {
-  opacity: 0.6;
-  animation: fadeInOut 3s ease-in-out infinite;
-}
-
-.hint-text {
-  font-size: 14px;
-  color: var(--color-text);
-  font-weight: 500;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 @keyframes bounce {
@@ -409,16 +360,6 @@ onMounted(loadBook)
   }
   100% {
     transform: scale(1.2);
-  }
-}
-
-@keyframes fadeInOut {
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 0.8;
   }
 }
 
